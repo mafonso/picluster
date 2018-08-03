@@ -5,3 +5,6 @@
   tasks:
     - name: Test connection
       ping:
+
+  roles:
+    - common
