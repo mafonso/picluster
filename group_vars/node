@@ -1,4 +1,4 @@
-hostname_prefix: "rpi-node"
+hostname_prefix: "node"
 consul_bootstrap_expect: 3
 consul_web_ui: true
 consul_server: true
