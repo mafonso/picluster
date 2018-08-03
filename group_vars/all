@@ -1,0 +1,10 @@
+# This is the default username and password for hypriot to get started out the box
+# You might want ssh certificates of ansible vault secrets in a real setup.
+ansible_connection: ssh 
+ansible_ssh_pass: raspberry
+ansible_ssh_user: pi
+ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
+
+consul_atlas_join: false
+consul_datacenter: "pi"
+consul_with_dnsmasq: true
