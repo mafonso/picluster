@@ -1,0 +1,6 @@
+datacenter = "rpi"
+
+client {
+    enabled = true
+    servers = {{ groups['node']| to_json }}
+}

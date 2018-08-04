@@ -1,0 +1,44 @@
+---
+- name: Get nomad
+  unarchive:
+    src: https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_arm.zip
+    dest: /usr/local/bin
+    creates: /usr/local/bin/nomad
+    copy: no
+  notify:
+    - restart nomad
+
+- name: Create nomad user
+  user:
+    name: nomad
+    home: /var/lib/nomad
+    shell: /bin/false
+    groups: docker
+    append: yes
+    createhome: no
+
+- name: Create config directory
+  file:
+    path: /etc/nomad/conf.d
+    state: directory
+
+- name: Create state directories
+  file:
+    path: "{{ item }}"
+    owner: nomad
+    group: nomad
+    state: directory
+  with_items:
+    - /var/lib/nomad
+    - /var/log/nomad
+
+- name: Copy launch script
+  copy:
+    src: nomad.service
+    dest: /etc/systemd/system/nomad.service
+
+- name: Enable nomad service
+  systemd:
+    name: nomad
+    enabled: yes
+    daemon_reload: yes
