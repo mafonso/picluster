@@ -9,3 +9,15 @@
   roles:
     - common
     - docker
+
+- hosts: master
+  become: yes
+
+  roles:
+  - consul
+
+- hosts: node
+  become: yes
+
+  roles:
+  - consul

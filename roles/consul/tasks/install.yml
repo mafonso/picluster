@@ -1,0 +1,40 @@
+---
+- name: Install consul binary
+  unarchive:
+    src: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_arm.zip
+    dest: /usr/local/bin
+    creates: /usr/local/bin/consul
+    copy: no
+
+- name: Create consul user
+  user:
+    name: consul
+    home: /var/lib/consul
+    shell: /bin/false
+    createhome: no
+
+- name: Create config directory
+  file:
+    path: /etc/consul/conf.d
+    state: directory
+
+- name: Create state directories
+  file:
+    path: "{{ item }}"
+    owner: consul
+    group: consul
+    state: directory
+  with_items:
+    - /var/lib/consul
+    - /var/log/consul
+
+- name: Copy launch script
+  copy:
+    src: consul.service
+    dest: /etc/systemd/system/consul.service
+
+- name: Enable consul service
+  systemd:
+    name: consul
+    enabled: yes
+    daemon_reload: yes
