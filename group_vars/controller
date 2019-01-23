@@ -1,0 +1,5 @@
+ansible_ssh_user: pi
+ansible_ssh_pass: clusterhat
+
+hostname_prefix: "controller"
+consul_with_dnsmasq: true

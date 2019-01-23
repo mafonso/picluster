@@ -21,7 +21,7 @@
 - name: configure dnsmasq
   template:
     src: dnsmasq.conf.j2
-    dest: /etc/dnsmasq.d/10-consul
+    dest: /etc/dnsmasq.d/10-consul.conf
   when: consul_with_dnsmasq
   tags:
     - configure

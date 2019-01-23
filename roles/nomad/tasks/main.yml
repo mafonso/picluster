@@ -10,7 +10,15 @@
   with_items:
     - 00-base.hcl
     - 10-client.hcl
+
+- name: Configure nomad agent
+  template:
+    src: "{{ item }}.j2"
+    dest: /etc/nomad/conf.d/{{ item }}
+  when: nomad_server_enabled
+  with_items:
     - 20-server.hcl
+
   notify:
     - restart nomad
   tags:

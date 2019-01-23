@@ -10,11 +10,20 @@
     - common
     - docker
 
-- hosts: master
+- hosts: controller
+  become: yes
+
+  tasks:
+  - iptables:
+      chain: FORWARD
+      policy: ACCEPT
+
+- hosts: controller:p
   become: yes
 
   roles:
   - consul
+  - nomad
 
 - hosts: node
   become: yes
@@ -22,3 +31,4 @@
   roles:
   - consul
   - nomad
+

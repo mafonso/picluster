@@ -14,7 +14,7 @@
   "protocol": {{ consul_protocol|to_json}},
 
   "client_addr": "0.0.0.0",
-  "advertise_addr": {{ ansible_eth0.ipv4.address |to_json }},
+  "advertise_addr": {{ ansible_default_ipv4.address |to_json }},
 
   "encrypt": {{ consul_encrypt|to_json }},
 

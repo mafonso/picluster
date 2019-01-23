@@ -1,3 +1,6 @@
+ansible_ssh_pass: raspberry
+ansible_ssh_user: pi
+
 hostname_prefix: "node"
 consul_bootstrap_expect: 3
 consul_web_ui: true

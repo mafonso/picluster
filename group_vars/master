@@ -1,2 +1,0 @@
-hostname_prefix: "master"
-consul_with_dnsmasq: true
