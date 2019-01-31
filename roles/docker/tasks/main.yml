@@ -11,7 +11,7 @@
     update_cache: yes
     state: present
 
-- name: Add the Docker official repos
+- name: Remove the main Docker official repos
   apt_repository:
     repo: deb https://download.docker.com/linux/raspbian stretch main
     update_cache: yes

@@ -1,0 +1,80 @@
+[agent]
+  interval = "10s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  hostname = ""
+  ## If set to true, do no set the "host" tag in the telegraf agent.
+  omit_hostname = false
+
+[[inputs.internal]]
+
+[[inputs.cpu]]
+ percpu = true
+ totalcpu = true
+ collect_cpu_time = false
+
+[[inputs.disk]]
+  ignore_fs = ["tmpfs", "devtmpfs"]
+
+[[inputs.diskio]]
+
+[[inputs.kernel]]
+
+[[inputs.mem]]
+
+[[inputs.processes]]
+
+[[inputs.interrupts]]
+
+[[inputs.conntrack]]
+
+[[inputs.swap]]
+
+[[inputs.system]]
+
+[[inputs.linux_sysctl_fs]]
+
+[[inputs.net]]
+
+[[inputs.netstat]]
+
+[[inputs.nstat]]
+
+[[inputs.docker]]
+  endpoint = "unix:///var/run/docker.sock"
+
+[[inputs.statsd]]
+  service_address = ":8125"
+  delete_gauges = false
+  delete_counters = false
+  delete_sets = false
+  delete_timings = true
+  percentiles = [90]
+  metric_separator = "."
+  templates = [
+    "nomad.raft.replication.appendEntries.*.*.*.*.* measurement.measurement.measurement.measurement.field.ip.ip.ip.ip",
+    "nomad.client.allocated.cpu.* measurement.measurement.measurement.measurement.node-id.datacenter",
+    "nomad.client.unallocated.cpu.* measurement.measurement.measurement.measurement.node-id.datacenter",
+    "nomad.client.allocated.memory.* measurement.measurement.measurement.measurement.node-id.datacenter",
+    "nomad.client.unallocated.memory.* measurement.measurement.measurement.measurement.node-id.datacenter",
+    "nomad.client.allocated.disk.* measurement.measurement.measurement.measurement.node-id.datacenter",
+    "nomad.client.unallocated.disk.* measurement.measurement.measurement.measurement.node-id.datacenter",
+    "nomad.client.allocated.iops.* measurement.measurement.measurement.measurement.node-id.datacenter",
+    "nomad.client.unallocated.iops.* measurement.measurement.measurement.measurement.node-id.datacenter",
+    "nomad.client.allocated.network.* measurement.measurement.measurement.measurement.node-id.datacenter.interface",
+    "nomad.client.unallocated.network.* measurement.measurement.measurement.measurement.node-id.datacenter.interface",
+    "nomad.client.allocs.* measurement.measurement.measurement.measurement.measurement.job.task-group.alloc-id.task"
+  ]
+  parse_data_dog_tags = false
+
+
+[[outputs.influxdb]]
+  urls = ["http://172.16.107.200:8086"]
+  database = "cluster"
+  write_consistency = "any"
+  skip_database_creation = true

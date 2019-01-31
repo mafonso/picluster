@@ -3,7 +3,6 @@
   unarchive:
     src: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_arm.zip
     dest: /usr/local/bin
-    creates: /usr/local/bin/consul
     copy: no
 
 - name: Create consul user

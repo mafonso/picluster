@@ -1,0 +1,42 @@
+---
+
+- name: Get the influxdata signing key for packages
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
+
+- name: Add the influxdata official repos
+  apt_repository:
+    repo: deb https://repos.influxdata.com/debian stretch stable
+    update_cache: yes
+    state: present
+
+- name: Add the Docker official repos
+  apt_repository:
+    repo: deb https://download.docker.com/linux/raspbian stretch main
+    update_cache: yes
+    state: absent
+
+- name: Install telegraf package
+  apt:
+    pkg: telegraf
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+    autoremove: yes
+
+- name: Enable telegraf service
+  systemd:
+    name: telegraf
+    state: started
+    enabled: yes
+
+- name: adding existing user telegraf to group docker
+  user:
+    name: telegraf
+    groups: docker
+    append: yes
+
+- import_tasks: config.yml
+  tags:
+    - config

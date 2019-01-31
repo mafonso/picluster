@@ -1,0 +1,8 @@
+---
+
+- name: Create telegraf config
+  template: src=telegraf.conf.j2 dest=/etc/telegraf/telegraf.conf owner=root group=root mode=0644
+  notify:
+    - restart telegraf
+
+- meta: flush_handlers

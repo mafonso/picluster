@@ -12,6 +12,15 @@
   tags:
     - configure
 
+- name: Configure consul agent telemetry
+  template:
+    src: telemetry.json.j2
+    dest: /etc/consul/conf.d/10-telemetry.json
+  notify:
+    - restart consul
+  tags:
+    - configure
+
 - name: install dnsmasq
   apt:
     name: dnsmasq

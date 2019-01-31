@@ -31,4 +31,5 @@
   roles:
   - consul
   - nomad
+  - telegraf
 
